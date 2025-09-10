@@ -1,0 +1,10 @@
+#!/bin/bash
+
+HERE_DIR=$(dirname -- "$( readlink -f -- "$0"; )";)
+source $HERE_DIR/env_epics
+
+# sometimes EDM does not start the first time
+# I have the felling that this line helps
+caget $1:INFO:VERSION
+
+/mnt/shared/mbf/runopi $1

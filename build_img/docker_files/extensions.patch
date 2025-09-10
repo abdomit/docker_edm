@@ -1,0 +1,234 @@
+Only in extensions: config
+diff -ru extensions/configure/os/CONFIG_SITE.linux-x86_64.linux-x86_64 extgit/configure/os/CONFIG_SITE.linux-x86_64.linux-x86_64
+--- extensions/configure/os/CONFIG_SITE.linux-x86_64.linux-x86_64	2011-08-25 18:18:49.000000000 +0200
++++ extgit/configure/os/CONFIG_SITE.linux-x86_64.linux-x86_64	2024-05-05 18:07:59.525221000 +0200
+@@ -11,9 +11,9 @@
+ 
+ -include $(TOP)/configure/os/CONFIG_SITE.Common.Common
+ 
+-X11_LIB=/usr/lib64
++X11_LIB=/usr/lib/x86_64-linux-gnu
+ X11_INC=/usr/include/X11
+-MOTIF_LIB=/usr/lib64
++MOTIF_LIB=/usr/lib/x86_64-linux-gnu
+ MOTIF_INC=/usr/include
+ #X11_INC=/local2/X11R6/include/X11
+ #X11_LIB=/local2/X11R6/lib
+diff -ru extensions/configure/RELEASE extgit/configure/RELEASE
+--- extensions/configure/RELEASE	2015-01-21 09:05:34.000000000 +0100
++++ extgit/configure/RELEASE	2024-05-05 18:07:59.470228000 +0200
+@@ -5,5 +5,5 @@
+ #INSTALL_LOCATION_EXTENSIONS=<fullpathname>
+ 
+ # Location of external products
+-EPICS_BASE=/home/mga83/build/base-3.14.12.4
++EPICS_BASE=$(TOP)/../base
+ EPICS_EXTENSIONS=$(TOP)
+diff -ru extensions/src/edm/baselib/Makefile extgit/src/edm/baselib/Makefile
+--- extensions/src/edm/baselib/Makefile	2013-01-15 12:30:05.000000000 +0100
++++ extgit/src/edm/baselib/Makefile	2024-05-05 18:07:59.581215000 +0200
+@@ -12,10 +12,10 @@
+ 
+    USR_CXXFLAGS_hpux11_11_mt += +W652 -DHP_UX=1111 -DSINGLE_THREADED=1 -D__epics__=1
+ 
+-   EdmBase_LIBS_Linux += Xm Xt Xp Xtst X11
++   EdmBase_LIBS_Linux += Xm Xt X11
+    EdmBase_SYS_LIBS_Linux += pthread dl
+ 
+-   EdmBase_LIBS_Darwin += Xm Xt Xp Xtst X11
++   EdmBase_LIBS_Darwin += Xm Xt X11
+    EdmBase_SYS_LIBS_Darwin += pthread dl
+ 
+    EdmBase_SYS_LIBS_solaris += Xm Xt Xmu X11 Xext
+diff -ru extensions/src/edm/choiceButton/Makefile extgit/src/edm/choiceButton/Makefile
+--- extensions/src/edm/choiceButton/Makefile	2013-01-15 12:30:05.000000000 +0100
++++ extgit/src/edm/choiceButton/Makefile	2024-05-05 18:07:59.919201000 +0200
+@@ -8,11 +8,11 @@
+    USR_LIBS += EdmBase cfcaa62e-8199-11d3-a77f-00104b8742df
+ 
+    USR_CXXFLAGS_Linux += -DSINGLE_THREADED=1 -D__epics__=1
+-   USR_LIBS_Linux += Xm Xt Xp Xtst X11
++   USR_LIBS_Linux += Xm Xt X11
+    USR_SYS_LIBS_Linux += pthread dl
+    
+    USR_CXXFLAGS_Darwin += -DSINGLE_THREADED=1 -D__epics__=1 -Wno-long-long
+-   USR_LIBS_Darwin += Xm Xt Xp Xtst X11
++   USR_LIBS_Darwin += Xm Xt X11
+    USR_SYS_LIBS_Darwin += pthread dl
+ 
+    USR_CXXFLAGS_solaris += -D__solaris__ -DSINGLE_THREADED=1 -D__epics__=1
+diff -ru extensions/src/edm/diamondlib/Makefile extgit/src/edm/diamondlib/Makefile
+--- extensions/src/edm/diamondlib/Makefile	2013-01-15 12:30:05.000000000 +0100
++++ extgit/src/edm/diamondlib/Makefile	2024-05-05 18:07:59.940224000 +0200
+@@ -13,10 +13,10 @@
+    EdmDiamond_LIBS += 114135a4-6f6c-11d3-95bc-00104b8742df
+    EdmDiamond_LIBS += Com
+ 
+-   EdmDiamond_LIBS_Linux += Xm Xt Xp Xtst X11
++   EdmDiamond_LIBS_Linux += Xm Xt X11
+    EdmDiamond_SYS_LIBS_Linux += pthread dl
+ 
+-   EdmDiamond_LIBS_Darwin += Xm Xt Xp Xtst X11
++   EdmDiamond_LIBS_Darwin += Xm Xt X11
+    EdmDiamond_SYS_LIBS_Darwin += pthread dl
+ 
+    EdmDiamond_LIBS_solaris +=  Xm Xt Xmu X11 Xext
+diff -ru extensions/src/edm/edmMain/Makefile extgit/src/edm/edmMain/Makefile
+--- extensions/src/edm/edmMain/Makefile	2013-01-15 12:30:05.000000000 +0100
++++ extgit/src/edm/edmMain/Makefile	2024-05-05 18:08:00.006281000 +0200
+@@ -13,10 +13,10 @@
+    edmMain_LIBS += EdmBase cfcaa62e-8199-11d3-a77f-00104b8742df 
+    edmMain_LIBS += 114135a4-6f6c-11d3-95bc-00104b8742df
+ 
+-   edmMain_LIBS_Linux += Xm Xmu Xt Xp Xtst X11
++   edmMain_LIBS_Linux += Xm Xmu Xt X11
+    edmMain_SYS_LIBS_Linux += pthread dl
+    
+-   edmMain_LIBS_Darwin += Xm Xmu Xt Xp Xtst X11
++   edmMain_LIBS_Darwin += Xm Xmu Xt X11
+    edmMain_SYS_LIBS_Darwin += pthread dl
+ 
+    edmMain_LIBS_solaris += Xt Xt Xmu X11 Xext
+diff -ru extensions/src/edm/giflib/Makefile extgit/src/edm/giflib/Makefile
+--- extensions/src/edm/giflib/Makefile	2013-01-15 12:30:05.000000000 +0100
++++ extgit/src/edm/giflib/Makefile	2024-05-05 18:08:00.037245000 +0200
+@@ -20,17 +20,17 @@
+    USR_LIBS += EdmBase cfcaa62e-8199-11d3-a77f-00104b8742df
+    USR_LIBS += 114135a4-6f6c-11d3-95bc-00104b8742df
+ 
+-   USR_LIBS_Linux += Xm Xt Xp Xtst X11
+-   USR_SYS_LIBS_Linux += pthread dl ungif gif
++   USR_LIBS_Linux += Xm Xt X11
++   USR_SYS_LIBS_Linux += pthread dl gif
+ 
+-   USR_LIBS_Darwin += Xm Xt Xp Xtst X11
+-   USR_SYS_LIBS_Darwin += pthread dl ungif gif
++   USR_LIBS_Darwin += Xm Xt X11
++   USR_SYS_LIBS_Darwin += pthread dl gif
+ 
+    USR_LIBS_solaris += Xm Xt Xmu X11 Xext
+-   USR_SYS_LIBS_solaris += pthread dl rt ungif gif
++   USR_SYS_LIBS_solaris += pthread dl rt gif
+ 
+    USR_LIBS_hpux11_11_mt = Xm Xt X11 Xext
+-   USR_SYS_LIBS_hpux11_11_mt = pthread ungif gif
++   USR_SYS_LIBS_hpux11_11_mt = pthread gif
+ 
+    LIBRARY = cf322683-513e-4570-a44b-7cdd7cae0de5
+ 
+diff -ru extensions/src/edm/giflib/Makefile.Host extgit/src/edm/giflib/Makefile.Host
+--- extensions/src/edm/giflib/Makefile.Host	2005-08-31 15:07:25.000000000 +0200
++++ extgit/src/edm/giflib/Makefile.Host	2024-05-05 18:08:00.040205000 +0200
+@@ -10,15 +10,15 @@
+ 
+ USR_CXXFLAGS_Linux += -D__linux__ -DSINGLE_THREADED=1 -D__epics__=1
+ 
+-USR_LIBS_Linux = EdmBase EdmLib Xm Xt Xp Xtst X11 pthread dl ungif
++USR_LIBS_Linux = EdmBase EdmLib Xm Xt Xp Xtst X11 pthread dl
+ 
+ USR_CXXFLAGS_solaris += -D__solaris__ -DSINGLE_THREADED=1 -D__epics__=1
+ 
+-USR_LIBS_solaris = EdmBase EdmLib Xm Xt Xmu X11 Xext pthread dl rt ungif
++USR_LIBS_solaris = EdmBase EdmLib Xm Xt Xmu X11 Xext pthread dl rt
+ 
+ USR_CXXFLAGS_hpux11_11_mt += -DHP_UX=1111 -DSINGLE_THREADED=1 -D__epics__=1
+ 
+-USR_LIBS_hpux11_11_mt = EdmBase EdmLib Xm Xt X11 Xext pthread ungif
++USR_LIBS_hpux11_11_mt = EdmBase EdmLib Xm Xt X11 Xext pthread
+ 
+ # Add Debugging
+ #USR_LDFLAGS += -g
+diff -ru extensions/src/edm/indicator/Makefile extgit/src/edm/indicator/Makefile
+--- extensions/src/edm/indicator/Makefile	2013-01-15 12:30:05.000000000 +0100
++++ extgit/src/edm/indicator/Makefile	2024-05-05 18:08:00.617213000 +0200
+@@ -8,11 +8,11 @@
+    USR_LIBS += EdmBase cfcaa62e-8199-11d3-a77f-00104b8742df
+ 
+    USR_CXXFLAGS_Linux += -DSINGLE_THREADED=1 -D__epics__=1
+-   USR_LIBS_Linux += Xm Xt Xp Xtst X11
++   USR_LIBS_Linux += Xm Xt X11
+    USR_SYS_LIBS_Linux += pthread dl
+    
+    USR_CXXFLAGS_Darwin += -DSINGLE_THREADED=1 -D__epics__=1 -Wno-long-long
+-   USR_LIBS_Darwin += Xm Xt Xp Xtst X11
++   USR_LIBS_Darwin += Xm Xt X11
+    USR_SYS_LIBS_Darwin += pthread dl
+ 
+    USR_CXXFLAGS_solaris += -D__solaris__ -DSINGLE_THREADED=1 -D__epics__=1
+diff -ru extensions/src/edm/lib/Makefile extgit/src/edm/lib/Makefile
+--- extensions/src/edm/lib/Makefile	2013-01-15 12:30:05.000000000 +0100
++++ extgit/src/edm/lib/Makefile	2024-05-05 18:08:00.637206000 +0200
+@@ -21,10 +21,10 @@
+   # Add debugging
+   #USR_CXXFLAGS_Linux += -g -O0
+ 
+-  USR_LIBS_Darwin += Xm Xt Xp Xtst X11
++  USR_LIBS_Darwin += Xm Xt X11
+   USR_SYS_LIBS_Darwin += pthread dl
+ 
+-  USR_LIBS_Linux += Xm Xt Xp Xtst X11
++  USR_LIBS_Linux += Xm Xt X11
+   USR_SYS_LIBS_Linux += pthread dl
+ 
+   USR_LIBS_solaris += Xm Xt Xmu X11 Xext
+diff -ru extensions/src/edm/multiSegRampButton/Makefile extgit/src/edm/multiSegRampButton/Makefile
+--- extensions/src/edm/multiSegRampButton/Makefile	2013-01-15 12:30:05.000000000 +0100
++++ extgit/src/edm/multiSegRampButton/Makefile	2024-05-05 18:08:01.026210000 +0200
+@@ -8,11 +8,11 @@
+    USR_LIBS += EdmBase cfcaa62e-8199-11d3-a77f-00104b8742df
+ 
+    USR_CXXFLAGS_Linux += -DSINGLE_THREADED=1 -D__epics__=1
+-   USR_LIBS_Linux += Xm Xt Xp Xtst X11
++   USR_LIBS_Linux += Xm Xt X11
+    USR_SYS_LIBS_Linux += pthread dl
+    
+    USR_CXXFLAGS_Darwin += -DSINGLE_THREADED=1 -D__epics__=1 -Wno-long-long
+-   USR_LIBS_Darwin += Xm Xt Xp Xtst X11
++   USR_LIBS_Darwin += Xm Xt X11
+    USR_SYS_LIBS_Darwin += pthread dl
+ 
+    USR_CXXFLAGS_solaris += -D__solaris__ -DSINGLE_THREADED=1 -D__epics__=1
+diff -ru extensions/src/edm/pnglib/Makefile extgit/src/edm/pnglib/Makefile
+--- extensions/src/edm/pnglib/Makefile	2013-01-15 12:30:05.000000000 +0100
++++ extgit/src/edm/pnglib/Makefile	2024-05-05 18:08:01.045198000 +0200
+@@ -21,10 +21,10 @@
+    USR_LIBS += 114135a4-6f6c-11d3-95bc-00104b8742df
+    USR_LIBS += EdmBase cfcaa62e-8199-11d3-a77f-00104b8742df
+ 
+-   USR_LIBS_Linux += Xm Xt Xp Xtst X11
++   USR_LIBS_Linux += Xm Xt X11
+    USR_SYS_LIBS_Linux += pthread dl png z
+ 
+-   USR_LIBS_Darwin += Xm Xt Xp Xtst X11
++   USR_LIBS_Darwin += Xm Xt X11
+    USR_SYS_LIBS_Darwin += pthread dl png z
+ 
+    USR_LIBS_solaris +=  Xm Xt Xmu X11 Xext
+diff -ru extensions/src/edm/widgets/triumflib/Makefile extgit/src/edm/widgets/triumflib/Makefile
+--- extensions/src/edm/widgets/triumflib/Makefile	2009-06-08 12:05:22.000000000 +0200
++++ extgit/src/edm/widgets/triumflib/Makefile	2024-05-05 18:08:02.359203000 +0200
+@@ -13,10 +13,10 @@
+    EdmTriumf_LIBS += EdmBase cfcaa62e-8199-11d3-a77f-00104b8742df
+    EdmTriumf_LIBS += 114135a4-6f6c-11d3-95bc-00104b8742df
+ 
+-   EdmTriumf_LIBS_Linux += Xm Xt Xp Xtst X11
++   EdmTriumf_LIBS_Linux += Xm Xt X11
+    EdmTriumf_SYS_LIBS_Linux += pthread dl
+    
+-   EdmTriumf_LIBS_Darwin += Xm Xt Xp Xtst X11
++   EdmTriumf_LIBS_Darwin += Xm Xt X11
+    EdmTriumf_SYS_LIBS_Darwin += pthread dl
+ 
+    EdmTriumf_LIBS_solaris +=  Xm Xt Xmu X11 Xext
+diff -ru extensions/src/edm/widgets/videowidget/TwoDProfileMonitor.cc extgit/src/edm/widgets/videowidget/TwoDProfileMonitor.cc
+--- extensions/src/edm/widgets/videowidget/TwoDProfileMonitor.cc	2012-11-08 15:14:19.000000000 +0100
++++ extgit/src/edm/widgets/videowidget/TwoDProfileMonitor.cc	2024-05-05 18:08:02.385234000 +0200
+@@ -16,7 +16,7 @@
+ #define VIDEO_RELEASE 1
+ 
+ #include <time.h>
+-#include <stream.h>
++//#include <stream.h>
+ 
+ #include <act_grf.h>
+ #include <act_win.h>
